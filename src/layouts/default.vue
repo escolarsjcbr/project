@@ -1,64 +1,107 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hhh LpR fFf">
     <q-layout-header>
       <q-toolbar
         color="primary"
         :glossy="$q.theme === 'mat'"
         :inverted="$q.theme === 'ios'"
       >
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
 
-        <q-toolbar-title>
-          Quasar App
-          <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
+        <q-toolbar-title class="text-center">
+          Transporte Escolar
+          <div slot="subtitle">São José dos Campos - SP</div>
         </q-toolbar-title>
+
       </q-toolbar>
     </q-layout-header>
 
     <q-layout-drawer
-      v-model="leftDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
+      side="right"
+      v-model="rightDrawerOpen"
+      :content-class="$q.theme === 'mat' ? 'bg-grey-3' : null"
     >
+
       <q-list
         no-border
         link
         inset-delimiter
       >
-        <q-list-header>Essential Links</q-list-header>
-        <q-item @click.native="openURL('http://quasar-framework.org')">
-          <q-item-side icon="school" />
-          <q-item-main label="Docs" sublabel="quasar-framework.org" />
-        </q-item>
-        <q-item @click.native="openURL('https://github.com/quasarframework/')">
-          <q-item-side icon="code" />
-          <q-item-main label="GitHub" sublabel="github.com/quasarframework" />
-        </q-item>
-        <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
-          <q-item-side icon="chat" />
-          <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg" />
-        </q-item>
-        <q-item @click.native="openURL('http://forum.quasar-framework.org')">
-          <q-item-side icon="record_voice_over" />
-          <q-item-main label="Forum" sublabel="forum.quasar-framework.org" />
-        </q-item>
-        <q-item @click.native="openURL('https://twitter.com/quasarframework')">
-          <q-item-side icon="rss feed" />
-          <q-item-main label="Twitter" sublabel="@quasarframework" />
-        </q-item>
+
+      <q-list-header>Login</q-list-header>
+
+        <q-input v-model="text" stack-label="E-mail" class="q-ma-sm" />
+        <q-input v-model="text" type="password" stack-label="Senha" class="q-ma-sm" />
+
+        <q-btn icon="account_circle" color="primary" label="entrar" class="q-ma-sm" />
       </q-list>
+
+    </q-layout-drawer>
+
+    <q-layout-drawer
+      v-model="leftDrawerOpen"
+      :content-class="$q.theme === 'mat' ? 'bg-grey-3' : null"
+    >
+
+      <q-list
+        no-border
+        link
+        inset-delimiter
+      >
+
+      <q-list-header>Procurar motoristas</q-list-header>
+        <q-field
+          label="Escola:"
+          helper="exemplo: antônio palmas"
+          error-label="Informe a escola"
+          :count="40"
+          class="q-ma-sm"
+        >
+          <q-input v-model="escola.nome" />
+        </q-field>
+
+        <q-radio v-model="option" val="opt1" label="Particular" class="q-ma-sm" />
+        <q-radio v-model="option" val="opt2" label="Prefeitura" class="q-ma-sm" />
+
+        <q-btn icon="search" color="primary" label="procurar" class="q-ma-sm" />
+      </q-list>
+
     </q-layout-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <!-- optional -->
+    <q-layout-footer>
+      <!-- content; any -->
+      <q-toolbar
+        color="primary"
+      >
+        <q-btn
+          flat
+          dense
+          round
+          @click="leftDrawerOpen = !leftDrawerOpen"
+          aria-label="Search"
+        >
+          <q-icon name="search" />
+        </q-btn>
+
+        <q-toolbar-title>
+
+        </q-toolbar-title>
+
+        <q-btn
+          flat
+          dense
+          round
+          @click="rightDrawerOpen = !rightDrawerOpen"
+          aria-label="Login"
+        >
+          <q-icon name="account_circle" />
+        </q-btn>
+      </q-toolbar>
+    </q-layout-footer>
   </q-layout>
 </template>
 
@@ -69,7 +112,13 @@ export default {
   name: 'LayoutDefault',
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      leftDrawerOpen: this.$q.platform.is.desktop,
+      rightDrawerOpen: false,
+      option: 'opt1',
+      text: '',
+      escola: {
+        nome: ''
+      }
     }
   },
   methods: {

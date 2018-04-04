@@ -49,6 +49,7 @@ module.exports = function (ctx) {
         'QLayout',
         'QLayoutHeader',
         'QLayoutDrawer',
+        'QLayoutFooter',
         'QPageContainer',
         'QPage',
         'QToolbar',
@@ -59,15 +60,29 @@ module.exports = function (ctx) {
         'QListHeader',
         'QItem',
         'QItemMain',
-        'QItemSide'
+        'QItemSide',
+        'QCard',
+        'QCardTitle',
+        'QCardMain',
+        'QCardMedia',
+        'QCardSeparator',
+        'QCardActions',
+        'QField',
+        'QInput',
+        'QRating',
+        'QBtn',
+        'QRadio'
       ],
       directives: [
         'Ripple'
       ],
       // Quasar plugins
       plugins: [
-        'Notify'
-      ]
+        'Notify',
+        'Loading'
+      ],
+      //
+      i18n: 'pt-br'
     },
     // animations: 'all' --- includes all animations
     animations: [
